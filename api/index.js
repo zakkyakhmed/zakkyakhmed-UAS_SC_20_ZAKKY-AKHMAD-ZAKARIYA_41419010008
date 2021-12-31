@@ -15,17 +15,17 @@ bot.onText(/\/start/, (msg) => {
     console.log(msg)
     bot.sendMessage(
         msg.chat.id,
-        `hallo ! ${msg.chat.first_name}, welcome...\n
+        `hallooo! ${msg.chat.first_name}, welcome...\n
         click /predict`
-    );   
+    ); 
+    state = 0;
 });
 // input requires x1 , x2 dan x3
-state = 0;
 bot.onText(/\/predict/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
-        `Masukan nilai x1|x2|x3 contohnya 8|8|8`
-    );
+        `Masukan nilai x1|x2|x3 contohnya 2|2|2`
+     )
     state = 1;
 });
 
@@ -36,37 +36,36 @@ bot.on('message', (msg) => {
         x2 = s[1]
         x3 = s[2]
         model.predict(
-            [ 
-                parseFloat(s[0]), // string float
+            [
+                parseFloat(s[0]), // string to float
                 parseFloat(s[1]),
                 parseFloat(s[2])
             ]
         ).then((jres)=>{
-            bot.sendmessage(
-                msg.chat.id,
-                `Nilai y1 yang diprediksi adalah ${jres[0]}`
-            );  
-            bot.sendmessage(
-                msg.chat.id,
-                `Nilai y2 yang diprediksi adalah ${jres[1]}`
-            );
-            bot.sendmessage(
-                msg.chat.id,
-                `Nilai y3 yang diprediksi adalah ${jres[2]}`
-            );
+                bot.sendMessage(
+                    msg.chat.id,
+                    `Prediksi y1 ${jres[0]}`
+                );
+                bot.sendMessage(
+                    msg.chat.id,
+                    `Prediksi y2  ${jres[1]}`
+                ); 
+                bot.sendMessage(
+                    msg.chat.id,
+                    `Prediksi y3 ${jres[2]}`
+                );
         })
     }else{
-        state = 0
+        state = 0;
     }
 })
-
 // routers
-r.get('predict/:x1/:x2/:x3', function(req, res, next) {
+r.get('/predict/:x1/:x2/:x3', function(req, res, next) {
     model.predict(
         [
-            parsefloat(req.params.x1),// string float
-            parsefloat(req.params.x2),
-            parsefloat(req.params.x3)
+            parseFloat(req.params.x1),// string float
+            parseFloat(req.params.x2),
+            parseFloat(req.params.x3)
         ]    
     ).then((jres)=>{
         res.json(jres);
