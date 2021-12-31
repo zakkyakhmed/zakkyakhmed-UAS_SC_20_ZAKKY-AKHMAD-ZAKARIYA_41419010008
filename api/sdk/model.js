@@ -1,16 +1,16 @@
 const tf = require('@tensorflow/tfjs-node');
 
 function normalized(data){ // x1 & x2 & x3
-    x1 = (data[0] - 42.66179775) / 10.59592219
-    x2 = (data[1] - 88.71235955) / 18.98517461
-    x3 = (data[2] - 143.0393258) / 23.07779243
+    x1 = (data[0] - 42.6618) / 10.5959
+    x2 = (data[1] - 88.7123) / 18.98
+    x3 = (data[2] - 143.0393) / 23.0779
     return [x1, x2, x3]
 }
 
 function denormalized(data){
-    y1 = (data[0] * 9.173413543) + 74.77191011
-    y2 = (data[1] * 14.7892333) + 49.84044944
-    y3 = (data[2] * 24.01464914) + 159.6988764
+    y1 = (data[0] * 9.1734) + 74.77191
+    y2 = (data[1] * 14.7892) + 49.84045
+    y3 = (data[2] * 24.014) + 159.6989
     return [y1, y2, y3]
 }
 
@@ -25,8 +25,8 @@ async function predict(data){
 
     try{
         // path load in public access => github
-        const path =
-const model = await tf.loadGraphModel(path);
+        const path = 'https://raw.githubusercontent.com/zakkyakhmed/zakkyakhmed-UAS_SC_20_ZAKKY-AKHMAD-ZAKARIYA_41419010008/main/public/ex_model/model.json?token=5094739943:AAGfQPWdyjbiL5xLMfnXjO8OgqaPlGf6HRk';
+        const model = await tf.loadGraphModel(path);
         
         predict = model.predict(
                 tf_data
