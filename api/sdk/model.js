@@ -26,3 +26,19 @@ async function predict(data){
     try{
         // path load in public access => github
         const path =
+const model = await tf.loadGraphModel(path);
+        
+        predict = model.predict(
+                tf_data
+        );
+        result = predict.dataSync();
+        return denormalized( result );
+        
+    }catch(e){
+      console.log(e);
+    }
+}
+
+module.exports = {
+    predict: predict 
+}
